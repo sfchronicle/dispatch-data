@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+  <head>
+    <title><%= json.project.seo_title %></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="__sync_contentCategory" content="meterA">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+
+    <!-- scripts for stand-alone projects, comment for embedded projects -->
+    <%= !json.project.embedded ? t.include("partials/_paywall.html") : t.include("partials/_embedframe.html") %>
+    <!-- also replace <body> with <body is="responsive-body"> -->
+
+    <%= t.include("partials/_head.html") %>
+
+  </head>
+
+  <%= !json.project.embedded ? "<body>" : "<body is='reponsive-body'>" %>
+
+    <div class="outer">
+
+      <div class="hed">As call volume grows, response time slows</div>
+      <div class="chatter chatter-nopadding">It is considered acceptable for 911 calls to be answered within 10 seconds and for non-emergency calls to be answered within 60 seconds. As the call volume has grown over the last 5 years, the percentage of calls answered within these ranges has been rapidly diminishing.<div class="chatter-sub">Hover over the map to see the numbers.</div></div>
+
+      <div class="legend-container">
+        <div class="element"><div class="emergency-swath"><div class="legend-text">Emergency calls</div></div></div>
+        <div class="element"><div class="nonemergency-swath"><div class="legend-text">Non-emergency calls</div></div></div>
+      </div>
+
+      <div class="bubble-graph"></div>
+
+      <div class="credit">
+        <div class="entry">Emma O'Neill  &bull; <a href="mailto:eoneill@sfchronicle.com">eoneill@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/emmaruthoneill" target="_blank">@emmaruthoneill</a></div>
+      </div>
+      <div class="source">Data is obtained from <a href="www.google.com" target="_blank">someone very helpful.</a></div>
+
+
+
+    </div>
+
+    <script>
+      var bubbleData = <%= JSON.stringify(csv.Bubbles) %>
+    </script>
+
+    <script src="../bubbles-app.js" async></script>
+    <%= t.include("partials/_helloSFC.html") %>
+
+  </body>
+</html>
