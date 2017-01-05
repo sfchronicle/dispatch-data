@@ -142,8 +142,8 @@ var node = svg.selectAll(".circle")
     .attr("class","node");
 
 node.append("text")
-    .attr("x", function(d) { return x(d.Year) })
-    .attr("y", function(d) { return y(d.Percent)+20; })
+    .attr("x", function(d) { return x(d.Year)-40 })
+    .attr("y", function(d) { return y(d.Percent)+40; })
     .attr("class","node-label")
     // .style("fill","black")
     .style("font-size","13px")

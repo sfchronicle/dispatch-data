@@ -13,7 +13,7 @@ var colors = {
   'nonemergency': '#6C85A5',
   'fallback': 'red'
 }
-var bar_spacing = 20;
+// var bar_spacing = 20;
 
 // toggle for the data file
 var data_toggle = "emergency";
@@ -37,7 +37,8 @@ document.querySelector('#nonemerg-button').addEventListener('click', function(){
 });
 
 // parse the date / time
-var parseMonth = d3.timeParse("%M");
+var parseMonth = d3.timeParse("%B");
+// console.log(parseMonth("01"));
 
 if (screen.width > 768) {
   var width = 800 - margin.left - margin.right;
@@ -63,7 +64,7 @@ var updateInfo = function(year) {
 
 var years = [2011, 2012, 2013, 2014, 2015, 2016];
 // var keys = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-var keys = ["Emergency","NonEmergency"];
+// var keys = ["Emergency","NonEmergency"];
 var i = 0;
 
 var loop = null;
@@ -83,7 +84,7 @@ tick();
 var svg, x, y;
 
 var	valueline = d3.line()
-	.x(function(d) { return x(d.Month); })
+	.x(function(d) { return x(parseMonth(d.Month)); })
 	.y(function(d) { return y(d.value); });
 
 function drawBars(selectedYear) {
@@ -107,17 +108,20 @@ function drawBars(selectedYear) {
        .append("g")
        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-     x = d3.scaleBand().rangeRound([0, width]).padding(0.02);
+     x = d3.scaleTime().range([0, width]);
+    //  x = d3.scaleBand().rangeRound([0, width]);//.padding(0.02);
      y = d3.scaleLinear().rangeRound([height, 0]);
 
      // x-axis scale
-     x.domain(barData.map(function(d) { return d.Month; }));
+     x.domain(d3.extent([parseMonth("January"),parseMonth("December")]));//.nice();
+    //  x.domain(barData.map(function(d) { return d.Month; }));
      y.domain([0, 60]);
 
      // Add the X Axis
      svg.append("g")
          .attr("transform", "translate(0," + height + ")")
-         .call(d3.axisBottom(x))
+         .call(d3.axisBottom(x)
+          .tickFormat(d3.timeFormat("%b")))
          .append("text")
          .attr("class", "label")
          .attr("x", width-10)
@@ -142,13 +146,13 @@ function drawBars(selectedYear) {
 
   // define the area
   var area = d3.area()
-      .x(function(d) { return x(d.Month); })
+      .x(function(d) { return x(parseMonth(d.Month)); })
       .y0(height)
       .y1(function(d) { return y(d.value); });
 
   // define the line
   var valueline = d3.line()
-      .x(function(d) { return x(d.Month); })
+      .x(function(d) { return x(parseMonth(d.Month)); })
       .y(function(d) { return y(d.value); });
 
   // add the area
@@ -156,8 +160,11 @@ function drawBars(selectedYear) {
      .data([barData])
      .attr("class", "area")
      .attr("fill",colors[data_toggle])
+     .transition()
+         .duration(200*12)
+         .attrTween('d', areaTween);
     //  .attr("stroke-width",function(d){return String((1+d.Year- +2010)+"px");})
-     .attr("d", area);
+    //  .attr("d", area);
 
   // add the valueline path
   var path = svg.append("path")
@@ -185,6 +192,14 @@ function drawBars(selectedYear) {
       .range(d3.range(1, barData.length + 1));
     return function(t) {
       return valueline(barData.slice(0, interpolate(t)));
+    };
+  }
+  function areaTween() {
+    var interpolate = d3.scaleQuantile()
+      .domain([0,1])
+      .range(d3.range(1, barData.length + 1));
+    return function(t) {
+      return area(barData.slice(0, interpolate(t)));
     };
   }
 
