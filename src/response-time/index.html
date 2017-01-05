@@ -18,14 +18,28 @@
 
   <%= !json.project.embedded ? "<body>" : "<body is='reponsive-body'>" %>
 
-    <%= t.include("partials/_nav.html") %>
+    <div class="outer">
 
+      <div class="hed">Call response time is growing</div>
+      <div class="chatter chatter-nopadding">Due to increasing call volume and other factors, for instance, the proliferation of cell phones and accidental calls which take extra time to resolve, call response time has reached disappointingly high levels. Please note that the scale is different on the two charts: non-emergency calls are lower priority and therefore have lower call response times.</div>
+      <div class="info response"></div>
 
-    <div class="container">
-      <p>Content goes here...</p>
+      <div class="sub-hed">Average call response time for emergencies</div>
+      <div id="response-time-emergency"></div>
+
+      <div class="sub-hed">Average call response time for non-emergencies</div>
+      <div id="response-time-nonemergency"></div>
+
+      <div class="credit">
+        <div class="entry">Emma O'Neill  &bull; <a href="mailto:eoneill@sfchronicle.com">eoneill@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/emmaruthoneill" target="_blank">@emmaruthoneill</a></div>
+      </div>
+      <div class="source">Data is obtained from <a href="www.google.com" target="_blank">someone very helpful.</a></div>
+
     </div>
 
-    <%= t.include("partials/_footer.html") %>
+    <script>
+      var responseTimeData = <%= JSON.stringify(csv.ResponseTime) %>
+    </script>
 
     <script src="../response-time-app.js" async></script>
     <%= t.include("partials/_helloSFC.html") %>
