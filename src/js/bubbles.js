@@ -105,27 +105,27 @@ svg.selectAll(".dot")
     .style("fill", function(d) {
       return color_function(d.Key) || colors.fallback;
     })
-    .on("mouseover", function(d) {
-        tooltip.html(`
-            <div>Year: <span class='bold'>${d.YearText}</span></div>
-            <div>Call type: <span class='bold'>${d.Key}</span></div>
-            <div>Number of calls: <span class='bold'>${d.NumberThous}K</span></div>
-            <div>% answered quickly: <span class='bold'>${d.Percent}%</span></div>
-        `);
-        tooltip.style("visibility", "visible");
-    })
-    .on("mousemove", function() {
-      if (screen.width <= 480) {
-        return tooltip
-          .style("top",(d3.event.pageY+40)+"px")//(d3.event.pageY+40)+"px")
-          .style("left",10+"px");
-      } else {
-        return tooltip
-          .style("top", (d3.event.pageY+20)+"px")
-          .style("left",(d3.event.pageX-80)+"px");
-      }
-    })
-    .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
+    // .on("mouseover", function(d) {
+    //     tooltip.html(`
+    //         <div>Year: <span class='bold'>${d.YearText}</span></div>
+    //         <div>Call type: <span class='bold'>${d.Key}</span></div>
+    //         <div>Number of calls: <span class='bold'>${d.NumberThous}K</span></div>
+    //         <div>% answered quickly: <span class='bold'>${d.Percent}%</span></div>
+    //     `);
+    //     tooltip.style("visibility", "visible");
+    // })
+    // .on("mousemove", function() {
+    //   if (screen.width <= 480) {
+    //     return tooltip
+    //       .style("top",(d3.event.pageY+40)+"px")//(d3.event.pageY+40)+"px")
+    //       .style("left",10+"px");
+    //   } else {
+    //     return tooltip
+    //       .style("top", (d3.event.pageY+20)+"px")
+    //       .style("left",(d3.event.pageX-80)+"px");
+    //   }
+    // })
+    // .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
 
 function color_function(county) {
   var id = county.toLowerCase().split(" ").join("");
@@ -222,9 +222,9 @@ svg.append("g")
     .text("Percent of calls within acceptable response time");
 
 // show tooltip
-var tooltip = d3.select(".bubble-graph")
-    .append("div")
-    .attr("class","tooltip")
-    .style("position", "absolute")
-    .style("z-index", "10")
-    .style("visibility", "hidden")
+// var tooltip = d3.select(".bubble-graph")
+//     .append("div")
+//     .attr("class","tooltip")
+//     .style("position", "absolute")
+//     .style("z-index", "10")
+//     .style("visibility", "hidden")

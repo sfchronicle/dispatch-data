@@ -62,7 +62,7 @@ var updateInfo = function(year) {
   document.querySelector(".info").innerHTML = `<strong>${year}</strong>`;
 };
 
-var years = [2011, 2012, 2013, 2014, 2015, 2016];
+var years = [2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016];
 // var keys = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 // var keys = ["Emergency","NonEmergency"];
 var i = 0;
@@ -72,7 +72,7 @@ var tick = function() {
   drawBars(years[i]);
   updateInfo(years[i]);
   i = (i + 1) % years.length;
-  loop = setTimeout(tick, i == 0 ? 10000 : 5000);
+  loop = setTimeout(tick, i == 0 ? 4000 : 3000);
   // loop = setTimeout(tick, i == 0 ? 1700 : 1000);
 };
 
@@ -99,7 +99,7 @@ function drawBars(selectedYear) {
       }
   });
 
-  if (selectedYear == 2011) {
+  if (selectedYear == 2007) {
 	   d3.select("#call-volume-graph").select("svg").remove();
 
      svg = d3.select("#call-volume-graph").append('svg')
