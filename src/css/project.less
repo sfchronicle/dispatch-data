@@ -1,3 +1,10 @@
+@emergency: #D13D59;
+@nonemergency: #6C85A5;
+
+.outer {
+  font-family: @block-graphics;
+}
+
 .chatter-sub {
   padding-top: 10px;
 }
@@ -40,6 +47,9 @@
   }
   margin: auto;
   margin-bottom: 40px;
+  &.nopadding {
+    margin-bottom: 0;
+  }
   padding: 4px;
   .display-flex;
   .flex-wrap(wrap);
@@ -58,11 +68,17 @@
     margin: 4px;
     border-radius: 2px;
   }
-  .emergency-swath {background: #A2B685}
-  .nonemergency-swath {background: #869FBF}
+  .emergency-swath {background: @emergency}
+  .nonemergency-swath {background: @nonemergency}
   .legend-text {
     width: 220px;
     padding-left: 20px;
     vertical-align: text-top;
   }
+}
+
+.info {
+  font-family: @bold-graphics;
+  text-align: center;
+  padding: 20px 0;
 }
