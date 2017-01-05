@@ -78,14 +78,7 @@ var tick = function() {
 
 tick();
 
-// updateInfo(2011);
-// drawBars(2011);
-
 var svg, x, y;
-
-var	valueline = d3.line()
-	.x(function(d) { return x(parseMonth(d.Month)); })
-	.y(function(d) { return y(d.value); });
 
 function drawBars(selectedYear) {
 
@@ -109,12 +102,10 @@ function drawBars(selectedYear) {
        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
      x = d3.scaleTime().range([0, width]);
-    //  x = d3.scaleBand().rangeRound([0, width]);//.padding(0.02);
      y = d3.scaleLinear().rangeRound([height, 0]);
 
      // x-axis scale
      x.domain(d3.extent([parseMonth("January"),parseMonth("December")]));//.nice();
-    //  x.domain(barData.map(function(d) { return d.Month; }));
      y.domain([0, 60]);
 
      // Add the X Axis
@@ -163,28 +154,15 @@ function drawBars(selectedYear) {
      .transition()
          .duration(200*12)
          .attrTween('d', areaTween);
-    //  .attr("stroke-width",function(d){return String((1+d.Year- +2010)+"px");})
-    //  .attr("d", area);
 
   // add the valueline path
   var path = svg.append("path")
       .data([barData])
       .attr("class", "line")
-      .attr("d", valueline)
       .attr("stroke",colors[data_toggle])
       .transition()
           .duration(200*12)
           .attrTween('d', pathTween);
-
-  // var totalLength = path.node().getTotalLength();
-  //
-  // path
-  //   .attr("stroke-dasharray", totalLength + " " + totalLength)
-  //   .attr("stroke-dashoffset", totalLength)
-  //   .transition()
-  //     .duration(2000)
-  //     .ease("linear")
-  //     .attr("stroke-dashoffset", 0);
 
   function pathTween() {
     var interpolate = d3.scaleQuantile()
@@ -202,33 +180,5 @@ function drawBars(selectedYear) {
       return area(barData.slice(0, interpolate(t)));
     };
   }
-
-  // // Add the valueline path.
-  // svg.append("path")
-  //     .data([barData])
-  //     .attr("class", "line")
-  //     .attr("d", valueline)
-  //     .attr("fill",colors["emergency"])
-  //     .attr("stroke-width",0);
-
-  // svg.selectAll("bar")
-  //     .data(barData)
-  //   .enter().append("rect")
-  //     .style("fill", colors["emergency"])
-  //     .attr("x", function(d) { return x(d.Month); })
-  //     .attr("width", x.bandwidth())
-  //     .attr("y", function(d) { return y(d.value); })
-  //     .attr("height", 0)
-  //     // .attr("opacity",0.2)
-  //     .attr("opacity",function(d,i) {
-  //       console.log(d);
-  //       return 0.3;//(0.15*(d.Year- +2010));
-  //     })
-  //     .transition()
-  //     .duration(200)
-  //     .delay(function (d, i) {
-  //       return i * 200;
-  //     })
-  //     .attr("height", function(d) { return height - y(d.value); });
 
 }
