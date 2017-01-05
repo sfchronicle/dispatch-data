@@ -21,7 +21,7 @@ var parseYear = d3.timeParse("%Y");
 
 if (screen.width > 768) {
   var width = 800 - margin.left - margin.right;
-  var height = 450 - margin.top - margin.bottom;
+  var height = 600 - margin.top - margin.bottom;
 } else if (screen.width <= 768 && screen.width > 480) {
   var width = 650 - margin.left - margin.right;
   var height = 400 - margin.top - margin.bottom;
@@ -81,7 +81,7 @@ var svg = d3.select(".bubble-graph").append("svg")
 
 console.log(bubbleData);
 x.domain(d3.extent([parseYear(2010),parseYear(2017)]));//.nice();
-y.domain(d3.extent(bubbleData, function(d) { return d.Percent; })).nice(); //.nice();
+y.domain([40,100]); //.nice();
 
 var xMin = x.domain()[0];
 var xMax = x.domain()[1];
@@ -101,6 +101,7 @@ svg.selectAll(".dot")
     })
     .attr("cx", function(d) { return x(d.Year); })
     .attr("cy", function(d) { return y(d.Percent); })
+    .attr("opacity",0.9)
     .style("fill", function(d) {
       return color_function(d.Key) || colors.fallback;
     })
@@ -139,6 +140,61 @@ var node = svg.selectAll(".circle")
     .data(bubbleData)
     .enter().append("g")
     .attr("class","node");
+
+node.append("text")
+    .attr("x", function(d) { return x(d.Year) })
+    .attr("y", function(d) { return y(d.Percent)+20; })
+    .attr("class","node-label")
+    // .style("fill","black")
+    .style("font-size","13px")
+    // .style("font-style","italic")
+    .text(function(d) {
+        return d.NumberThous+"K calls";
+    });
+
+var xMin = x.domain()[0];
+var xMax = x.domain()[1];
+
+var line80 = [
+  {x: xMin, y: 80},
+  {x: xMax, y: 80}
+];
+
+var line90 = [
+  {x: xMin, y: 90},
+  {x: xMax, y: 90}
+];
+
+// define the line
+var linefunc = d3.line()
+    .x(function(d) { return x(d.x); })
+    .y(function(d) { return y(d.y); });
+
+var path80 = svg.append("path")
+  .attr("d", linefunc(line80))
+  .attr("stroke", colors["non-emergency"])
+  .attr("stroke-width", "2")
+  .attr("fill", "none");
+
+svg.append("text")
+    .attr("x", 4*width/5)
+    .attr("y", 4*height/10-50)
+    .attr("text-anchor", "middle")
+    .style("font-size", "13px")
+    .text("Target response rate for non-emergency calls");
+
+var path90 = svg.append("path")
+  .attr("d", linefunc(line90))
+  .attr("stroke", colors["emergency"])
+  .attr("stroke-width", "2")
+  .attr("fill", "none");
+
+svg.append("text")
+    .attr("x", 4*width/5)
+    .attr("y", 2*height/10-30)
+    .attr("text-anchor", "middle")
+    .style("font-size", "13px")
+    .text("Target response rate for emergency calls");
 
 // Add the X Axis
 svg.append("g")

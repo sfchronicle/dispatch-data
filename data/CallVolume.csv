@@ -67,7 +67,7 @@ Year,Month,Emergency,NonEmergency
 2016,June,53836,54017
 2016,July,55193,55014
 2016,August,52331,53126
-2016,September,0,0
-2016,October,0,0
-2016,November,0,0
-2016,December,0,0
+2016,September,,
+2016,October,,
+2016,November,,
+2016,December,,
