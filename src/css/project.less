@@ -38,9 +38,18 @@ svg {
 
 .area {
   // fill: @emergency;
-  opacity: 0.2;
+  opacity: 0.15;
   // fill: white;
 }
+
+
+html[data-browser*='Safari'] .area {
+  opacity: 0.1;
+}
+html[data-browser*='Chrome'] .area {
+  opacity: 0.15;
+}
+
 
 .outer {
   font-family: @block-graphics;

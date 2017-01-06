@@ -1,6 +1,10 @@
 require("./lib/social"); //Do not delete
 var d3 = require('d3');
 
+var doc = document.documentElement;
+doc.setAttribute('data-browser', navigator.userAgent);
+console.log(navigator.userAgent);
+
 // colors for bubble graph
 var colors = {
   'emergency': '#D13D59',
