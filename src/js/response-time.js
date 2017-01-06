@@ -23,7 +23,7 @@ if (screen.width > 768){//768) {
   console.log("everything else");
   var margin = {
     top: 15,
-    right: 15,
+    right: 30,
     bottom: 40,
     left: 80
   };
@@ -33,7 +33,7 @@ if (screen.width > 768){//768) {
   console.log("ipad");
   var margin = {
     top: 15,
-    right: 15,
+    right: 30,
     bottom: 40,
     left: 60
   };
@@ -43,8 +43,8 @@ if (screen.width > 768){//768) {
   console.log("big phone");
   var margin = {
     top: 15,
-    right: 10,
-    bottom: 30,
+    right: 40,
+    bottom: 35,
     left: 30
   };
   var width = 360 - margin.left - margin.right;
@@ -53,8 +53,8 @@ if (screen.width > 768){//768) {
   console.log("mini iphone")
   var margin = {
     top: 15,
-    right: 10,
-    bottom: 30,
+    right: 40,
+    bottom: 35,
     left: 30
   };
   var width = 310 - margin.left - margin.right;
@@ -122,9 +122,21 @@ function drawBars(selectedYear) {
 
      // Add the X Axis
      ["svgEmerg","svgNonEmerg"].forEach(function(d){
+
+       if (screen.width <= 480) {
+         eval(d).append("g")
+          .attr("transform", "translate(0," + height + ")")
+          .call(d3.axisBottom(x))
+          .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", "rotate(-65)" )
+       } else {
         eval(d).append("g")
          .attr("transform", "translate(0," + height + ")")
          .call(d3.axisBottom(x))
+      }
           // .tickFormat(d3.timeFormat("%b")))
         //  .append("text")
         //  .attr("class", "label")

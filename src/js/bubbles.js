@@ -23,7 +23,7 @@ if (screen.width > 768){//768) {
   console.log("everything else");
   var margin = {
     top: 15,
-    right: 15,
+    right: 30,
     bottom: 40,
     left: 80
   };
@@ -33,7 +33,7 @@ if (screen.width > 768){//768) {
   console.log("ipad");
   var margin = {
     top: 15,
-    right: 15,
+    right: 30,
     bottom: 40,
     left: 60
   };
@@ -43,8 +43,8 @@ if (screen.width > 768){//768) {
   console.log("big phone");
   var margin = {
     top: 15,
-    right: 20,
-    bottom: 30,
+    right: 40,
+    bottom: 40,
     left: 30
   };
   var width = 360 - margin.left - margin.right;
@@ -53,8 +53,8 @@ if (screen.width > 768){//768) {
   console.log("mini iphone")
   var margin = {
     top: 15,
-    right: 20,
-    bottom: 30,
+    right: 40,
+    bottom: 40,
     left: 30
   };
   var width = 310 - margin.left - margin.right;
@@ -243,16 +243,35 @@ if (screen.width > 480){
 }
 
 // Add the X Axis
-svg.append("g")
-    .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x))
-    .append("text")
-    .attr("class", "label")
-    .attr("x", width-10)
-    .attr("y", -10)
-    .style("text-anchor", "end")
-    .style("fill","black")
-    .text("Year");
+if (screen.width <= 480) {
+  svg.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x))
+      .selectAll("text")
+        .style("text-anchor", "end")
+        .attr("dx", "-.8em")
+        .attr("dy", ".15em")
+        .attr("transform", "rotate(-65)" )
+      .append("text")
+      .attr("class", "label")
+      .attr("x", width-10)
+      .attr("y", -10)
+      .style("text-anchor", "end")
+      .style("fill","black")
+      .text("Year");
+} else {
+  svg.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x))
+      .append("text")
+      .attr("class", "label")
+      .attr("x", width-10)
+      .attr("y", -10)
+      .style("text-anchor", "end")
+      .style("fill","black")
+      .text("Year");
+}
+
 
 // Add the Y Axis
 if (screen.width <= 480) {
