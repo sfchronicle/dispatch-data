@@ -38,7 +38,7 @@ if (screen.width > 768){//768) {
   console.log("everything else");
   var margin = {
     top: 15,
-    right: 15,
+    right: 35,
     bottom: 40,
     left: 80
   };
@@ -48,7 +48,7 @@ if (screen.width > 768){//768) {
   console.log("ipad");
   var margin = {
     top: 15,
-    right: 30,
+    right: 35,
     bottom: 40,
     left: 60
   };
@@ -68,7 +68,7 @@ if (screen.width > 768){//768) {
   console.log("mini iphone")
   var margin = {
     top: 15,
-    right: 40,
+    right: 45,
     bottom: 35,
     left: 30
   };
