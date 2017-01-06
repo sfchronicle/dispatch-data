@@ -5,7 +5,7 @@ var d3 = require('d3');
 var margin = {
   top: 15,
   right: 15,
-  bottom: 60,
+  bottom: 50,
   left: 80
 };
 var colors = {
@@ -101,13 +101,13 @@ function drawBars(selectedYear) {
          .attr("transform", "translate(0," + height + ")")
          .call(d3.axisBottom(x))
           // .tickFormat(d3.timeFormat("%b")))
-         .append("text")
-         .attr("class", "label")
-         .attr("x", width-10)
-         .attr("y", 50)
-         .style("text-anchor", "end")
-         .style("fill","black")
-         .text("Month");
+        //  .append("text")
+        //  .attr("class", "label")
+        //  .attr("x", width-10)
+        //  .attr("y", 50)
+        //  .style("text-anchor", "end")
+        //  .style("fill","black")
+        //  .text("Month");
     });
 
      // Add the Y Axis
@@ -121,7 +121,7 @@ function drawBars(selectedYear) {
          .attr("dy", "20px")
          .style("text-anchor", "end")
          .style("fill","black")
-         .text("Response time (s)");
+         .text("Seconds");
       // Add the Y Axis
       svgNonEmerg.append("g")
           .call(d3.axisLeft(ynonemerg))
@@ -133,7 +133,7 @@ function drawBars(selectedYear) {
           .attr("dy", "20px")
           .style("text-anchor", "end")
           .style("fill","black")
-          .text("Response time (s)");
+          .text("Seconds");
   }
   barDataEmergency.forEach(function(d) {
       d.date = d.Month;

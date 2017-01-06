@@ -91,8 +91,6 @@ svg.selectAll(".dot")
     .data(bubbleData)
     .enter().append("circle")
     .attr("r", function(d) {
-      //return 6;
-      console.log(d.Number/60000);
       if (screen.width <= 480) {
         return d.Number/50000;//(d.NumberEmerg/1400)+5;
       } else {
@@ -177,11 +175,11 @@ var path80 = svg.append("path")
   .attr("fill", "none");
 
 svg.append("text")
-    .attr("x", 4*width/5)
+    .attr("x", 4*width/5+50)
     .attr("y", 4*height/10-50)
     .attr("text-anchor", "middle")
     .style("font-size", "13px")
-    .text("Target response rate for non-emergency calls");
+    .text("Nonemergency call standard");
 
 var path90 = svg.append("path")
   .attr("d", linefunc(line90))
@@ -190,11 +188,11 @@ var path90 = svg.append("path")
   .attr("fill", "none");
 
 svg.append("text")
-    .attr("x", 4*width/5)
+    .attr("x", 4*width/5+60)
     .attr("y", 2*height/10-30)
     .attr("text-anchor", "middle")
     .style("font-size", "13px")
-    .text("Target response rate for emergency calls");
+    .text("Emergency call standard");
 
 // Add the X Axis
 svg.append("g")
@@ -215,11 +213,11 @@ svg.append("g")
     .attr("class", "label")
     .attr("transform", "rotate(-90)")
     .attr("y", -70)
-    .attr("x", -10)
+    .attr("x", 0)
     .attr("dy", "20px")
     .style("text-anchor", "end")
     .style("fill","black")
-    .text("Percent of calls within acceptable response time");
+    .text("Percent of calls meeting national standard");
 
 // show tooltip
 // var tooltip = d3.select(".bubble-graph")

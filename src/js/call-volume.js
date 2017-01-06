@@ -2,12 +2,6 @@ require("./lib/social"); //Do not delete
 var d3 = require('d3');
 
 // colors for bubble graph
-var margin = {
-  top: 15,
-  right: 15,
-  bottom: 60,
-  left: 80
-};
 var colors = {
   'emergency': '#D13D59',
   'nonemergency': '#6C85A5',
@@ -40,21 +34,27 @@ document.querySelector('#nonemerg-button').addEventListener('click', function(){
 var parseMonth = d3.timeParse("%B");
 // console.log(parseMonth("01"));
 
-if (screen.width > 768) {
+if (screen.width > 480){//768) {
+  var margin = {
+    top: 15,
+    right: 15,
+    bottom: 40,
+    left: 80
+  };
   var width = 800 - margin.left - margin.right;
   var height = 450 - margin.top - margin.bottom;
-} else if (screen.width <= 768 && screen.width > 480) {
-  var width = 650 - margin.left - margin.right;
-  var height = 400 - margin.top - margin.bottom;
+// } else if (screen.width <= 768 && screen.width > 480) {
+//   var width = 650 - margin.left - margin.right;
+//   var height = 400 - margin.top - margin.bottom;
 } else if (screen.width <= 480) {
   var margin = {
     top: 15,
-    right: 10,
-    bottom: 25,
+    right: 20,
+    bottom: 45,
     left: 30
   };
   var width = 310 - margin.left - margin.right;
-  var height = 300 - margin.top - margin.bottom;
+  var height = 350 - margin.top - margin.bottom;
 }
 
 // fills in HTML for year as years toggle
@@ -106,33 +106,57 @@ function drawBars(selectedYear) {
 
      // x-axis scale
      x.domain(d3.extent([parseMonth("January"),parseMonth("December")]));//.nice();
-     y.domain([0, 60]);
+     if (screen.width <= 480) {
+       y.domain([0, 70]);
+     } else {
+       y.domain([0, 60]);
+     }
 
      // Add the X Axis
+     if (screen.width <=480) {
+       var yval = 40;
+     } else {
+       var yval = 50;
+     }
      svg.append("g")
          .attr("transform", "translate(0," + height + ")")
          .call(d3.axisBottom(x)
           .tickFormat(d3.timeFormat("%b")))
-         .append("text")
-         .attr("class", "label")
-         .attr("x", width-10)
-         .attr("y", 50)
-         .style("text-anchor", "end")
-         .style("fill","black")
-         .text("Month");
+        //  .append("text")
+        //  .attr("class", "label")
+        //  .attr("x", width-10)
+        //  .attr("y", yval)
+        //  .style("text-anchor", "end")
+        //  .style("fill","black")
+        //  .text("Month");
 
-     // Add the Y Axis
-     svg.append("g")
-         .call(d3.axisLeft(y))
-         .append("text")
-         .attr("class", "label")
-         .attr("transform", "rotate(-90)")
-         .attr("y", -70)
-         .attr("x", -10)
-         .attr("dy", "20px")
-         .style("text-anchor", "end")
-         .style("fill","black")
-         .text("Number of calls (K)");
+     if (screen.width <= 480) {
+       // Add the Y Axis
+       svg.append("g")
+           .call(d3.axisLeft(y))
+           .append("text")
+           .attr("class", "label")
+           .attr("transform", "rotate(-90)")
+           .attr("y", 0)
+           .attr("x", 10)
+           .attr("dy", "20px")
+           .style("text-anchor", "end")
+           .style("fill","black")
+           .text("# of calls (K)");
+     } else {
+       // Add the Y Axis
+       svg.append("g")
+           .call(d3.axisLeft(y))
+           .append("text")
+           .attr("class", "label")
+           .attr("transform", "rotate(-90)")
+           .attr("y", -70)
+           .attr("x", -10)
+           .attr("dy", "20px")
+           .style("text-anchor", "end")
+           .style("fill","black")
+           .text("Number of calls (K)");
+    }
   }
 
   // define the area
