@@ -34,7 +34,8 @@ document.querySelector('#nonemerg-button').addEventListener('click', function(){
 var parseMonth = d3.timeParse("%B");
 // console.log(parseMonth("01"));
 
-if (screen.width > 480){//768) {
+if (screen.width > 768){//768) {
+  console.log("everything else");
   var margin = {
     top: 15,
     right: 15,
@@ -43,14 +44,32 @@ if (screen.width > 480){//768) {
   };
   var width = 800 - margin.left - margin.right;
   var height = 450 - margin.top - margin.bottom;
-// } else if (screen.width <= 768 && screen.width > 480) {
-//   var width = 650 - margin.left - margin.right;
-//   var height = 400 - margin.top - margin.bottom;
-} else if (screen.width <= 480) {
+} else if (screen.width <= 768 && screen.width > 480) {
+  console.log("ipad");
+  var margin = {
+    top: 15,
+    right: 15,
+    bottom: 40,
+    left: 60
+  };
+  var width = 720 - margin.left - margin.right;
+  var height = 450 - margin.top - margin.bottom;
+} else if (screen.width <= 480 && screen.width > 340) {
+  console.log("big phone");
   var margin = {
     top: 15,
     right: 20,
-    bottom: 45,
+    bottom: 30,
+    left: 30
+  };
+  var width = 360 - margin.left - margin.right;
+  var height = 350 - margin.top - margin.bottom;
+} else if (screen.width <= 340) {
+  console.log("mini iphone")
+  var margin = {
+    top: 15,
+    right: 20,
+    bottom: 30,
     left: 30
   };
   var width = 310 - margin.left - margin.right;

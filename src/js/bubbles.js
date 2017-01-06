@@ -19,21 +19,46 @@ var parseYear = d3.timeParse("%Y");
 
 // bubble graph ---------------------------------------------------------------
 
-if (screen.width > 768) {
-  var width = 800 - margin.left - margin.right;
-  var height = 600 - margin.top - margin.bottom;
-} else if (screen.width <= 768 && screen.width > 480) {
-  var width = 650 - margin.left - margin.right;
-  var height = 400 - margin.top - margin.bottom;
-} else if (screen.width <= 480) {
+if (screen.width > 768){//768) {
+  console.log("everything else");
   var margin = {
     top: 15,
-    right: 10,
-    bottom: 25,
+    right: 15,
+    bottom: 40,
+    left: 80
+  };
+  var width = 800 - margin.left - margin.right;
+  var height = 450 - margin.top - margin.bottom;
+} else if (screen.width <= 768 && screen.width > 480) {
+  console.log("ipad");
+  var margin = {
+    top: 15,
+    right: 15,
+    bottom: 40,
+    left: 60
+  };
+  var width = 720 - margin.left - margin.right;
+  var height = 450 - margin.top - margin.bottom;
+} else if (screen.width <= 480 && screen.width > 340) {
+  console.log("big phone");
+  var margin = {
+    top: 15,
+    right: 20,
+    bottom: 30,
+    left: 30
+  };
+  var width = 360 - margin.left - margin.right;
+  var height = 350 - margin.top - margin.bottom;
+} else if (screen.width <= 340) {
+  console.log("mini iphone")
+  var margin = {
+    top: 15,
+    right: 20,
+    bottom: 30,
     left: 30
   };
   var width = 310 - margin.left - margin.right;
-  var height = 300 - margin.top - margin.bottom;
+  var height = 350 - margin.top - margin.bottom;
 }
 
 // convert strings to numbers
@@ -139,16 +164,35 @@ var node = svg.selectAll(".circle")
     .enter().append("g")
     .attr("class","node");
 
-node.append("text")
-    .attr("x", function(d) { return x(d.Year)-40 })
-    .attr("y", function(d) { return y(d.Percent)+40; })
-    .attr("class","node-label")
-    // .style("fill","black")
-    .style("font-size","13px")
-    // .style("font-style","italic")
-    .text(function(d) {
-        return d.NumberThous+"K calls";
-    });
+if (screen.width <= 480) {
+  var font_str = "11px";
+} else {
+  var font_str = "13px";
+}
+
+if (screen.width <= 480) {
+  node.append("text")
+      .attr("x", function(d) { return x(d.Year)-5; })
+      .attr("y", function(d) { return y(d.Percent)+25; })
+      .attr("class","node-label")
+      // .style("fill","black")
+      .style("font-size",font_str)
+      // .style("font-style","italic")
+      .text(function(d) {
+          return d.NumberThous+"K";
+      });
+} else {
+  node.append("text")
+      .attr("x", function(d) { return x(d.Year)-40 })
+      .attr("y", function(d) { return y(d.Percent)+40; })
+      .attr("class","node-label")
+      // .style("fill","black")
+      .style("font-size",font_str)
+      // .style("font-style","italic")
+      .text(function(d) {
+          return d.NumberThous+"K calls";
+      });
+}
 
 var xMin = x.domain()[0];
 var xMax = x.domain()[1];
@@ -174,12 +218,14 @@ var path80 = svg.append("path")
   .attr("stroke-width", "2")
   .attr("fill", "none");
 
-svg.append("text")
-    .attr("x", 4*width/5+50)
-    .attr("y", 4*height/10-50)
-    .attr("text-anchor", "middle")
-    .style("font-size", "13px")
-    .text("Nonemergency call standard");
+if (screen.width > 480){
+  svg.append("text")
+      .attr("x", 4*width/5+50)
+      .attr("y", 4*height/10-50)
+      .attr("text-anchor", "middle")
+      .style("font-size", "13px")
+      .text("Nonemergency call standard");
+}
 
 var path90 = svg.append("path")
   .attr("d", linefunc(line90))
@@ -187,12 +233,14 @@ var path90 = svg.append("path")
   .attr("stroke-width", "2")
   .attr("fill", "none");
 
-svg.append("text")
-    .attr("x", 4*width/5+60)
-    .attr("y", 2*height/10-30)
-    .attr("text-anchor", "middle")
-    .style("font-size", "13px")
-    .text("Emergency call standard");
+if (screen.width > 480){
+  svg.append("text")
+      .attr("x", 4*width/5+60)
+      .attr("y", 2*height/10-30)
+      .attr("text-anchor", "middle")
+      .style("font-size", "13px")
+      .text("Emergency call standard");
+}
 
 // Add the X Axis
 svg.append("g")
@@ -207,17 +255,31 @@ svg.append("g")
     .text("Year");
 
 // Add the Y Axis
-svg.append("g")
-    .call(d3.axisLeft(y))
-    .append("text")
-    .attr("class", "label")
-    .attr("transform", "rotate(-90)")
-    .attr("y", -70)
-    .attr("x", 0)
-    .attr("dy", "20px")
-    .style("text-anchor", "end")
-    .style("fill","black")
-    .text("Percent of calls meeting national standard");
+if (screen.width <= 480) {
+  svg.append("g")
+      .call(d3.axisLeft(y))
+      .append("text")
+      .attr("class", "label")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0)
+      .attr("x", 0)
+      .attr("dy", "20px")
+      .style("text-anchor", "end")
+      .style("fill","black")
+      .text("Percent of calls meeting national standard");
+} else {
+  svg.append("g")
+      .call(d3.axisLeft(y))
+      .append("text")
+      .attr("class", "label")
+      .attr("transform", "rotate(-90)")
+      .attr("y", -70)
+      .attr("x", 0)
+      .attr("dy", "20px")
+      .style("text-anchor", "end")
+      .style("fill","black")
+      .text("Percent of calls meeting national standard");
+}
 
 // show tooltip
 // var tooltip = d3.select(".bubble-graph")

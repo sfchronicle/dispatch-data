@@ -19,21 +19,46 @@ var bar_spacing = 20;
 var parseMonth = d3.timeParse("%B");
 // console.log(parseMonth("01"));
 
-if (screen.width > 768) {
+if (screen.width > 768){//768) {
+  console.log("everything else");
+  var margin = {
+    top: 15,
+    right: 15,
+    bottom: 40,
+    left: 80
+  };
   var width = 650 - margin.left - margin.right;
   var height = 250 - margin.top - margin.bottom;
 } else if (screen.width <= 768 && screen.width > 480) {
+  console.log("ipad");
+  var margin = {
+    top: 15,
+    right: 15,
+    bottom: 40,
+    left: 60
+  };
   var width = 650 - margin.left - margin.right;
-  var height = 400 - margin.top - margin.bottom;
-} else if (screen.width <= 480) {
+  var height = 250 - margin.top - margin.bottom;
+} else if (screen.width <= 480 && screen.width > 340) {
+  console.log("big phone");
   var margin = {
     top: 15,
     right: 10,
-    bottom: 25,
+    bottom: 30,
+    left: 30
+  };
+  var width = 360 - margin.left - margin.right;
+  var height = 200 - margin.top - margin.bottom;
+} else if (screen.width <= 340) {
+  console.log("mini iphone")
+  var margin = {
+    top: 15,
+    right: 10,
+    bottom: 30,
     left: 30
   };
   var width = 310 - margin.left - margin.right;
-  var height = 300 - margin.top - margin.bottom;
+  var height = 200 - margin.top - margin.bottom;
 }
 
 // fills in HTML for year as years toggle
@@ -110,6 +135,32 @@ function drawBars(selectedYear) {
         //  .text("Month");
     });
 
+   if (screen.width <= 480) {
+     // Add the Y Axis
+     svgEmerg.append("g")
+         .call(d3.axisLeft(yemerg))
+         .append("text")
+         .attr("class", "label")
+         .attr("transform", "rotate(-90)")
+         .attr("y", 0)
+         .attr("x", -10)
+         .attr("dy", "20px")
+         .style("text-anchor", "end")
+         .style("fill","black")
+         .text("Seconds");
+      // Add the Y Axis
+      svgNonEmerg.append("g")
+          .call(d3.axisLeft(ynonemerg))
+          .append("text")
+          .attr("class", "label")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 0)
+          .attr("x", -10)
+          .attr("dy", "20px")
+          .style("text-anchor", "end")
+          .style("fill","black")
+          .text("Seconds");
+   } else {
      // Add the Y Axis
      svgEmerg.append("g")
          .call(d3.axisLeft(yemerg))
@@ -134,6 +185,7 @@ function drawBars(selectedYear) {
           .style("text-anchor", "end")
           .style("fill","black")
           .text("Seconds");
+   }
   }
   barDataEmergency.forEach(function(d) {
       d.date = d.Month;

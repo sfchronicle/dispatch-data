@@ -1,11 +1,20 @@
 @emergency: #D13D59;
 @nonemergency: #6C85A5;
 
+svg {
+  margin: auto;
+}
+
 .sub-hed {
   text-align: center;
   padding: 20px 0;
   font-size: 18px;
   font-family: @bold-graphics;
+  @media @mobile {
+    font-size: 14px;
+    padding: 0;
+    padding-top: 10px;
+  }
 }
 
 .node-label {
@@ -40,6 +49,10 @@
 .chatter {
   padding: 0 20px;
   padding-bottom: 20px;
+  @media @mobile {
+    padding: 0;
+    padding-bottom: 20px;
+  }
 }
 
 .chatter-sub {
@@ -48,6 +61,9 @@
 
 .chatter-nopadding {
   margin-bottom: 5px;
+  @media @mobile {
+    padding-bottom: 0;
+  }
 }
 
 .tooltip {
@@ -122,6 +138,9 @@
   color: darken(@dark-gray,20%);
   &.response {
     padding: 10px 0;
+  }
+  @media @mobile {
+    padding-bottom: 0;
   }
 }
 
